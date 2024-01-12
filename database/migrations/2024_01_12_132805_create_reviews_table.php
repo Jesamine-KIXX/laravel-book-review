@@ -16,10 +16,18 @@ return new class extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
 
+            // $table->unsignedBigInteger('book_id');
+
             $table->text('review');
             $table->unsignedTinyInteger('rating');
             
             $table->timestamps();
+
+            // $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
+            // when a book gets deleted from the database, all related reviews will be removed too
+
+            $table->foreignId('book_id')->constrained()->cascadeOnDelete();
+            // does the same as commented lines
         });
     }
 
